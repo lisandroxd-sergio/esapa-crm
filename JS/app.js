@@ -173,10 +173,16 @@ $("btn-guardar").addEventListener("click", async () => {
     $("success-nombre").textContent = datosParticipante.nombre;
     $("wsp-preview").textContent = mensaje;
 
-    // Botón WhatsApp
+    // Botón WhatsApp — popup flotante sobre el sistema (sin salir de la pantalla)
     const tel = "54" + datosParticipante.telefono;
-    const wspUrl = `https://wa.me/${tel}?text=${encodeURIComponent(mensaje)}`;
-    $("btn-wsp").onclick = () => window.open(wspUrl, "_blank");
+    const wspUrl = `https://web.whatsapp.com/send?phone=${tel}&text=${encodeURIComponent(mensaje)}`;
+    $("btn-wsp").onclick = () => {
+      window.open(
+        wspUrl,
+        "whatsapp_popup",
+        "width=480,height=680,top=80,left=200,resizable=yes,scrollbars=yes"
+      );
+    };
 
     cardConfirm.classList.add("hidden");
     cardSuccess.classList.remove("hidden");
