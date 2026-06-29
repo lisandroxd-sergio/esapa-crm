@@ -224,6 +224,116 @@ body {
   gap: 16px;
 }
 
+.course-dropdown {
+  position: relative;
+}
+
+.course-dropdown-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--gray-900);
+  font-family: var(--font);
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.course-dropdown-toggle:hover,
+.course-dropdown-toggle:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+  outline: none;
+}
+
+.course-dropdown-arrow {
+  color: var(--gray-500);
+  font-size: 14px;
+}
+
+.course-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.course-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.course-search-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  white-space: nowrap;
+}
+
+.course-search-input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+.course-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.course-chip {
+  border: 1px solid var(--gray-300);
+  background: var(--white);
+  color: var(--gray-700);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+}
+
+.course-chip:hover {
+  border-color: var(--blue-400);
+  color: var(--blue-700);
+  transform: translateY(-1px);
+}
+
+.course-chip.active {
+  background: var(--blue-500);
+  color: var(--white);
+  border-color: var(--blue-500);
+  box-shadow: var(--shadow-btn);
+}
+
+.course-chip.hidden {
+  display: none;
+}
+
+.course-chip-other {
+  color: var(--blue-700);
+}
+
 .label {
   font-size: 13px;
   font-weight: 600;

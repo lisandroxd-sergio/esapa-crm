@@ -7,7 +7,7 @@
    ──────────────────────────────────────────── */
 const CONFIG = {
   // 1. Pegá aquí la URL de tu Google Apps Script (ver README)
-  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxvFBOQ_OWQCetWHVpLnGBQ49fgcIYJuqnPMS4LTR72KKtqzD6Rz4M-VFwqpAtymc5Fng/exec",
+  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwDCQ-rJ22-9ZMmsBpGSeE58OWrBWySAbm0SeP8WzIkxMSf3SzlNrfOzj3if0UeIJQF/exec",
 
   // 2. Número de WhatsApp de ESAPA (para el chatbot, no se usa en el envío individual)
   WSP_ESAPA: "5492612345678",
@@ -36,6 +36,79 @@ const cardSuccess = $("card-success");
 
 const stepDots = [$("step-dot-1"), $("step-dot-2"), $("step-dot-3")];
 const stepLines = document.querySelectorAll(".step-line");
+const cursoInput = $("curso");
+const cursoNav = $("curso-nav");
+const cursoMenu = $("curso-menu");
+const cursoToggle = $("curso-toggle");
+const cursoSelected = $("curso-selected");
+const cursoChips = Array.from(document.querySelectorAll(".course-chip"));
+
+function normalizarTexto(texto) {
+  return String(texto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function actualizarVistaCursos(filtro = "") {
+  const texto = normalizarTexto(filtro);
+
+  cursoChips.forEach(chip => {
+    const valor = normalizarTexto(chip.dataset.value);
+    const coincide = !texto || valor.includes(texto);
+    chip.classList.toggle("hidden", !coincide);
+  });
+}
+
+function seleccionarCurso(valor) {
+  cursoInput.value = valor;
+  cursoSelected.textContent = valor || "Seleccioná un curso";
+  cursoChips.forEach(chip => {
+    chip.classList.toggle("active", chip.dataset.value === valor);
+  });
+  $("grupo-otro").classList.toggle("hidden", valor !== "Otro");
+  cursoMenu.classList.add("hidden");
+}
+
+cursoToggle.addEventListener("click", () => {
+  cursoMenu.classList.toggle("hidden");
+  if (!cursoMenu.classList.contains("hidden")) {
+    cursoInput.focus();
+  }
+});
+
+cursoInput.addEventListener("input", () => {
+  const valor = cursoInput.value.trim();
+  actualizarVistaCursos(valor);
+
+  const valorNormalizado = normalizarTexto(valor);
+  const coincideExacto = cursoChips.some(chip => normalizarTexto(chip.dataset.value) === valorNormalizado);
+
+  if (coincideExacto) {
+    const chipCoincidente = cursoChips.find(chip => normalizarTexto(chip.dataset.value) === valorNormalizado);
+    seleccionarCurso(chipCoincidente.dataset.value);
+  } else {
+    cursoSelected.textContent = valor || "Seleccioná un curso";
+    cursoChips.forEach(chip => chip.classList.remove("active"));
+    $("grupo-otro").classList.toggle("hidden", valor !== "Otro");
+  }
+});
+
+cursoNav.addEventListener("click", (event) => {
+  const chip = event.target.closest(".course-chip");
+  if (!chip) return;
+
+  seleccionarCurso(chip.dataset.value);
+  actualizarVistaCursos("");
+  cursoInput.focus();
+});
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".course-dropdown")) {
+    cursoMenu.classList.add("hidden");
+  }
+});
 
 /* ════════════════════════════════════════
    PASOS (step bar)

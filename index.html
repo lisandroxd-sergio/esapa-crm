@@ -80,16 +80,45 @@
 
         <div class="field-group">
           <label class="label" for="curso">Curso de interés <span class="required">*</span></label>
-          <select class="input select" id="curso">
-            <option value="">— Seleccioná un curso —</option>
-            <option value="Administración de Empresas">Administración de Empresas</option>
-            <option value="Marketing Digital">Marketing Digital</option>
-            <option value="Diseño Gráfico">Diseño Gráfico</option>
-            <option value="Programación Web">Programación Web</option>
-            <option value="Enfermería">Enfermería</option>
-            <option value="Gastronomía">Gastronomía</option>
-            <option value="Otro">Otro (especificar abajo)</option>
-          </select>
+
+          <div class="course-dropdown" id="course-dropdown">
+            <button class="course-dropdown-toggle" type="button" id="curso-toggle">
+              <span id="curso-selected">Seleccioná un curso</span>
+              <span class="course-dropdown-arrow">▾</span>
+            </button>
+
+            <div class="course-dropdown-menu hidden" id="curso-menu">
+              <div class="course-search-row">
+                <span class="course-search-label">Buscar:</span>
+                <input class="input course-search-input" type="text" id="curso" placeholder="Escribí un curso o carrera" autocomplete="off" />
+              </div>
+
+              <div class="course-nav" id="curso-nav" aria-label="Navegación de cursos">
+                <button class="course-chip" type="button" data-value="Auxiliar de Farmacia">Auxiliar de Farmacia</button>
+                <button class="course-chip" type="button" data-value="Lengua de Señas">Lengua de Señas</button>
+                <button class="course-chip" type="button" data-value="Administrativo de Veterinarias">Administrativo de Veterinarias</button>
+                <button class="course-chip" type="button" data-value="Secretariado Medico">Secretariado Medico</button>
+                <button class="course-chip" type="button" data-value="Auxiliar de Acomp. Terapéutico">Auxiliar de Acomp. Terapeutico</button>
+                <button class="course-chip" type="button" data-value="Inteligencia Artificial">Inteligencia Artificial</button>
+                <button class="course-chip" type="button" data-value="Diseño digital">Diseño digital</button>
+                <button class="course-chip" type="button" data-value="Community manager">Community manager</button>
+                <button class="course-chip" type="button" data-value="Instalador de Paneles Solares">Instalador de Paneles Solares</button>
+                <button class="course-chip" type="button" data-value="Electricidad Domiciliaria">Electricidad Domiciliaria</button>
+                <button class="course-chip" type="button" data-value="Peluquería Canina">Peluqueria Canina</button>
+                <button class="course-chip" type="button" data-value="Mecánica de Motos">Mecanica de Motos</button>
+                <button class="course-chip" type="button" data-value="Reparación de Celulares">Reparacion de Celulares</button>
+                <button class="course-chip" type="button" data-value="Inglés Profesional">Ingles Profesional</button>
+                <button class="course-chip" type="button" data-value="Cuidados Infantiles">Cuidados Infantiles</button>
+                <button class="course-chip" type="button" data-value="Barbería">Barberia</button>
+                <button class="course-chip" type="button" data-value="Arte y diseño de uñas">Arte y diseño de uñas</button>
+                <button class="course-chip" type="button" data-value="Técnico Superior en Farmacia">Tecnico Superior en Farmacia</button>
+                <button class="course-chip" type="button" data-value="Técnico Superior en Sanidad Animal">Tecnico Superior en Sanidad Animal</button>
+                <button class="course-chip" type="button" data-value="Técnico Sup. en Diseño Multimedial">Tecnico Sup. en Diseño Multimedial</button>
+                <button class="course-chip course-chip-other" type="button" data-value="Otro">Otro (especificar abajo)</button>
+              </div>
+            </div>
+          </div>
+
           <span class="field-error" id="err-curso"></span>
         </div>
 
