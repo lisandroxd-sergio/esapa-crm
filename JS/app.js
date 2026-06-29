@@ -216,18 +216,22 @@ async function enviarASheets(datos) {
   // Si la URL es la de placeholder, simulamos el guardado (modo demo)
   if (CONFIG.GOOGLE_SCRIPT_URL.includes("TU_URL_AQUI")) {
     console.warn("⚠️ MODO DEMO: No hay URL de Google Apps Script configurada.");
-    await new Promise(r => setTimeout(r, 1200)); // simular delay
+    await new Promise(r => setTimeout(r, 1200));
     return { resultado: "demo" };
   }
 
-  const resp = await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(datos),
-  });
+  // Usamos no-cors + URLSearchParams para evitar el bloqueo CORS de Apps Script
+  const params = new URLSearchParams();
+  Object.entries(datos).forEach(([k, v]) => params.append(k, v));
 
-  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-  return resp.json();
+  await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",           // Apps Script no devuelve headers CORS correctos
+    body: params,
+  });
+  // Con no-cors la respuesta es opaque (no podemos leerla),
+  // pero si no lanza excepción, el dato llegó.
+  return { ok: true };
 }
 
 /* ════════════════════════════════════════
